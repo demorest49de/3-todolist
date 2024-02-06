@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {FilterValuesType} from './App';
+import {log} from "util";
 
 type TaskType = {
     id: string
@@ -30,8 +31,12 @@ export function Todolist(props: PropsType) {
             <input value={title}
                    onChange={(event) => {
                        setTitle(event.currentTarget.value)
-                   }
-                   }
+                   }}
+                   onKeyPress={(event)=> {
+                       if(event.key === 'Enter'){
+                           addTask()
+                       }
+                   }}
             />
             <button onClick={addTask}>+
             </button>
