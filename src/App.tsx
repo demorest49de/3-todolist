@@ -42,7 +42,6 @@ function App() {
     }
 
     function changeCheckboxValue(id: string, isChecked: boolean) {
-        debugger
         const changedValues = tasks.map(task => task.id === id ? {...task, isDone: isChecked} : task)
         setTasks(changedValues)
     }

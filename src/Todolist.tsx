@@ -27,17 +27,16 @@ export function Todolist(props: PropsType) {
         <ul>
             {
                 props.tasks.map(t => {
-                    const uuid = v1();
                     return (<li key={t.id}>
                         <input
                             type="checkbox"
-                            id={`checkbox${uuid}`}
+                            id={`checkbox${t.id}`}
                             defaultChecked={t.isDone}
                             onClick={() => {
-                                props.changeCheckboxValue(uuid, !t.isDone)
+                                props.changeCheckboxValue(t.id, !t.isDone)
                             }}
                         />
-                        <label htmlFor={`checkbox${uuid}`}>{t.title}</label>
+                        <label htmlFor={`checkbox${t.id}`}>{t.title}</label>
                         <button onClick={() => {
                             props.removeTask(t.id)
                         }}>x
