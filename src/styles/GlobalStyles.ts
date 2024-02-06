@@ -33,7 +33,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   input, textarea {
-    color: ${theme.colors.white};
+    color: black;
   }
 
   picture {
@@ -57,6 +57,7 @@ export const GlobalStyles = createGlobalStyle`
     border: 1px solid indianred;
     border-radius: 10px;
     color: ${theme.colors.white}
+    
   }
 
   a {

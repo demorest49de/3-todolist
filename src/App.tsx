@@ -35,8 +35,8 @@ function App() {
         setFilter(value);
     }
 
-    function addTask() {
-        const newTask = {id: v1(), title: "New task", isDone: false};
+    function addTask(title: string) {
+        const newTask = {id: v1(), title: title, isDone: false};
         const withNew = [newTask, ...tasks];
         setTasks(withNew);
     }

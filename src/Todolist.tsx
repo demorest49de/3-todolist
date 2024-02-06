@@ -1,5 +1,4 @@
-import React from 'react';
-import {v1} from 'uuid';
+import React, {useState} from 'react';
 import {FilterValuesType} from './App';
 
 type TaskType = {
@@ -13,16 +12,29 @@ type PropsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
     changeFilter: (value: FilterValuesType) => void
-    addTask: () => void
+    addTask: (title: string) => void
     changeCheckboxValue: (id: string, isChecked: boolean) => void
 }
 
 export function Todolist(props: PropsType) {
+    const [title, setTitle] = useState('');
+
+    const addTask = () => {
+        props.addTask(title)
+        setTitle('');
+    }
+
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input type="text" name="" />
-            <button onClick={props.addTask}>+</button>
+            <input value={title}
+                   onChange={(event) => {
+                       setTitle(event.currentTarget.value)
+                   }
+                   }
+            />
+            <button onClick={addTask}>+
+            </button>
         </div>
         <ul>
             {
@@ -31,7 +43,7 @@ export function Todolist(props: PropsType) {
                         <input
                             type="checkbox"
                             id={`checkbox${t.id}`}
-                            defaultChecked={t.isDone}
+                            checked={t.isDone}
                             onClick={() => {
                                 props.changeCheckboxValue(t.id, !t.isDone)
                             }}
