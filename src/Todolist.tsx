@@ -1,5 +1,5 @@
 import React from 'react';
-import { v1 } from 'uuid';
+import {v1} from 'uuid';
 import {FilterValuesType} from './App';
 
 type TaskType = {
@@ -13,27 +13,37 @@ type PropsType = {
     tasks: Array<TaskType>
     removeTask: (taskId: string) => void
     changeFilter: (value: FilterValuesType) => void
+    addTask: () => void
+    changeCheckboxValue: (id: string, isChecked: boolean) => void
 }
 
 export function Todolist(props: PropsType) {
     return <div>
         <h3>{props.title}</h3>
         <div>
-            <input type="button" name="" value=""/>
-            <button>+</button>
+            <input type="text" name="" />
+            <button onClick={props.addTask}>+</button>
         </div>
         <ul>
             {
                 props.tasks.map(t => {
                     const uuid = v1();
-                    return(<li key={t.id}>
-                    <input type="checkbox" id={`checkbox${uuid}`} defaultChecked={t.isDone} />
-                    <label htmlFor={`checkbox${uuid}`}>{t.title}</label>
-                    <button onClick={() => {
-                        props.removeTask(t.id)
-                    }}>x
-                    </button>
-                </li>)})
+                    return (<li key={t.id}>
+                        <input
+                            type="checkbox"
+                            id={`checkbox${uuid}`}
+                            defaultChecked={t.isDone}
+                            onClick={() => {
+                                props.changeCheckboxValue(uuid, !t.isDone)
+                            }}
+                        />
+                        <label htmlFor={`checkbox${uuid}`}>{t.title}</label>
+                        <button onClick={() => {
+                            props.removeTask(t.id)
+                        }}>x
+                        </button>
+                    </li>)
+                })
             }
         </ul>
         <div>
