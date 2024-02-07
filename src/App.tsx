@@ -41,7 +41,7 @@ function App() {
         setTasks(withNew);
     }
 
-    function changeCheckboxValue(id: string, isChecked: boolean) {
+    function changeTaskStatus(id: string, isChecked: boolean) {
         const changedValues = tasks.map(task => task.id === id ? {...task, isDone: isChecked} : task)
         setTasks(changedValues)
     }
@@ -53,7 +53,7 @@ function App() {
                       removeTask={removeTask}
                       addTask={addTask}
                       changeFilter={changeFilter}
-                      changeCheckboxValue={changeCheckboxValue}
+                      changeCheckboxValue={changeTaskStatus}
             />
         </div>
     );

@@ -17,19 +17,27 @@ type PropsType = {
 }
 
 export function Todolist(props: PropsType) {
+
     const [title, setTitle] = useState('');
+    const [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
-        props.addTask(title)
-        setTitle('');
+        const trimmed = title.trim();
+        if (trimmed !== '') {
+            props.addTask(trimmed)
+            setTitle('');
+        } else {
+            setError('Title is required')
+        }
     }
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
     }
 
-    const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) =>{
-        if(event.key === 'Enter'){
+    const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        setError(null)
+        if (event.key === 'Enter') {
             addTask()
         }
     }
@@ -50,14 +58,14 @@ export function Todolist(props: PropsType) {
             <input value={title}
                    onChange={onChangeHandler}
                    onKeyDown={onKeyPressHandler}
+                   className={error ? 'error' : ''}
             />
-            <button onClick={addTask}>+
-            </button>
+            <button onClick={addTask}>+</button>
+            {error && <div className='error-message'>{error}</div>}
         </div>
         <ul>
             {
                 props.tasks.map(t => {
-
 
                     const onCheckboxClickHandler = () => {
                         props.changeCheckboxValue(t.id, !t.isDone)
