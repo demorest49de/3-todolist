@@ -18,6 +18,16 @@ type PropsType = {
 }
 
 export function Todolist(props: PropsType) {
+    //data
+    const fAll: FilterValuesType = "all";
+    const fActive: FilterValuesType = "active";
+    const fCompleted: FilterValuesType = "completed";
+
+    const filters = {
+        all: fAll,
+        active: fActive,
+        completed: fCompleted
+    }
 
     //hook
     const [title, setTitle] = useState('');
@@ -48,16 +58,8 @@ export function Todolist(props: PropsType) {
         }
     }
 
-    const onAllClickHandler = () => {
-        props.changeFilter("all")
-    }
-
-    const onActiveClickHandler = () => {
-        props.changeFilter("active")
-    }
-
-    const onCompleteClickHandler = () => {
-        props.changeFilter("completed")
+    const onClickHandler = (status: FilterValuesType) => {
+        props.changeFilter(status)
     }
 
     return <div>
@@ -98,19 +100,20 @@ export function Todolist(props: PropsType) {
                 })
             }
         </ul>
+
         <div>
-            <button onClick={onAllClickHandler}
+            <button title={filters.all} onClick={()=>onClickHandler(filters.all)}
                     className={props.filter === 'all' ? "active-filter" : ""}
             >
                 All
             </button>
-            <button onClick={onActiveClickHandler}
+            <button title={filters.active} onClick={()=>onClickHandler(filters.active)}
 
                     className={props.filter === 'active' ? "active-filter" : ""}
             >
                 Active
             </button>
-            <button onClick={onCompleteClickHandler}
+            <button title={filters.completed} onClick={()=>onClickHandler(filters.completed)}
 
                     className={props.filter === 'completed' ? "active-filter" : ""}
             >
