@@ -68,8 +68,9 @@ export function Todolist(props: PropsType) {
             {
                 props.tasks.map(t => {
 
-                    const onCheckboxClickHandler = () => {
-                        props.changeCheckboxValue(t.id, !t.isDone)
+                    const onCheckboxClickHandler = (e: React.MouseEvent<HTMLInputElement>) => {
+                        console.log(' e.currentTarget.checked: ', e.currentTarget.checked);
+                        props.changeCheckboxValue(t.id, e.currentTarget.checked)
                     }
 
                     const onRemoveTaskClickHandler = () => {
@@ -80,7 +81,7 @@ export function Todolist(props: PropsType) {
                         <input
                             type="checkbox"
                             id={`checkbox${t.id}`}
-                            checked={t.isDone}
+                            defaultChecked={t.isDone}
                             onClick={onCheckboxClickHandler}
                         />
                         <label htmlFor={`checkbox${t.id}`}>{t.title}</label>
@@ -92,19 +93,19 @@ export function Todolist(props: PropsType) {
         </ul>
         <div>
             <button onClick={onAllClickHandler}
-            className={props.filter === 'all' ?  "active-filter" : ""}
+                    className={props.filter === 'all' ? "active-filter" : ""}
             >
                 All
             </button>
             <button onClick={onActiveClickHandler}
 
-            className={props.filter === 'active' ?  "active-filter" : ""}
+                    className={props.filter === 'active' ? "active-filter" : ""}
             >
                 Active
             </button>
             <button onClick={onCompleteClickHandler}
 
-            className={props.filter === 'completed' ?  "active-filter" : ""}
+                    className={props.filter === 'completed' ? "active-filter" : ""}
             >
                 Completed
             </button>

@@ -15,11 +15,6 @@ function App() {
         {id: v1(), title: "GraphQL", isDone: false},
     ]);
 
-    function removeTask(id: string) {
-        let filteredTasks = tasks.filter(t => t.id !== id);
-        setTasks(filteredTasks);
-    }
-
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
     let tasksForTodolist = tasks;
@@ -29,6 +24,11 @@ function App() {
     }
     if (filter === "completed") {
         tasksForTodolist = tasks.filter(t => t.isDone === true);
+    }
+
+    function removeTask(id: string) {
+        let filteredTasks = tasks.filter(t => t.id !== id);
+        setTasks(filteredTasks);
     }
 
     function changeFilter(value: FilterValuesType) {
