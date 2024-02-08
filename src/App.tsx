@@ -7,14 +7,15 @@ export type FilterValuesType = "all" | "active" | "completed";
 
 function App() {
 
-    let [tasks, setTasks] = useState([
+    const data = [
         {id: v1(), title: "HTML&CSS", isDone: true},
         {id: v1(), title: "JS", isDone: true},
         {id: v1(), title: "ReactJS", isDone: false},
         {id: v1(), title: "Rest API", isDone: false},
         {id: v1(), title: "GraphQL", isDone: false},
-    ]);
+    ]
 
+    let [tasks, setTasks] = useState(data);
     let [filter, setFilter] = useState<FilterValuesType>("all");
 
     let tasksForTodolist = tasks;
@@ -26,6 +27,7 @@ function App() {
         tasksForTodolist = tasks.filter(t => t.isDone === true);
     }
 
+    //functionality
     function removeTask(id: string) {
         let filteredTasks = tasks.filter(t => t.id !== id);
         setTasks(filteredTasks);
