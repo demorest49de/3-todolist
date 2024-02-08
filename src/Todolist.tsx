@@ -19,12 +19,14 @@ type PropsType = {
 
 export function Todolist(props: PropsType) {
 
+    //hook
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null)
 
+    //function
     const addTask = () => {
         const trimmed = title.trim();
-        if (trimmed !== '') {
+        if (trimmed !== "") {
             props.addTask(trimmed)
             setTitle('');
         } else {
@@ -32,6 +34,8 @@ export function Todolist(props: PropsType) {
         }
     }
 
+
+    //handler
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.currentTarget.value)
     }
@@ -46,9 +50,11 @@ export function Todolist(props: PropsType) {
     const onAllClickHandler = () => {
         props.changeFilter("all")
     }
+
     const onActiveClickHandler = () => {
         props.changeFilter("active")
     }
+
     const onCompleteClickHandler = () => {
         props.changeFilter("completed")
     }
@@ -69,7 +75,6 @@ export function Todolist(props: PropsType) {
                 props.tasks.map(t => {
 
                     const onCheckboxClickHandler = (e: React.MouseEvent<HTMLInputElement>) => {
-                        console.log(' e.currentTarget.checked: ', e.currentTarget.checked);
                         props.changeCheckboxValue(t.id, e.currentTarget.checked)
                     }
 
@@ -77,7 +82,8 @@ export function Todolist(props: PropsType) {
                         props.removeTask(t.id)
                     }
 
-                    return (<li key={t.id} className={t.isDone ? "is-done" : ""}>
+                    return (
+                        <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input
                             type="checkbox"
                             id={`checkbox${t.id}`}
