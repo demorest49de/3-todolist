@@ -3,6 +3,8 @@ import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from "uuid";
 
+// import "./native-js-learning/WhatPurposesObjectCanBeUsedFor"
+
 export type FilterValuesType = "all" | "active" | "completed";
 
 function App() {

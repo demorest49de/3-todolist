@@ -37,6 +37,7 @@ export function Todolist(props: PropsType) {
 
     //handler
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        console.log(' event: ', event);
         setTitle(event.currentTarget.value)
     }
 
