@@ -35,25 +35,33 @@ export function Todolist(props: PropsType) {
 
     //function
     const addTask = () => {
+        debugger
+
         const trimmed = title.trim();
         if (trimmed !== "") {
             props.addTask(trimmed)
-            setTitle('');
-        } else {
-            setError('Title is required')
+            return setTitle('');
         }
+
+        setError('Title is required')
     }
 
 
     //handler
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log(' event: ', event);
         setTitle(event.currentTarget.value)
     }
 
     const onKeyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+
         setError(null)
-        if (event.key === 'Enter') {
+        console.log(' title.trim().length: ', title.trim().length);
+        if (title.trim().length > 10) {
+            debugger
+            return setError('Total length should less 15 letters')
+        }
+
+        if (!error && event.key === 'Enter') {
             addTask()
         }
     }
@@ -70,7 +78,10 @@ export function Todolist(props: PropsType) {
                    onKeyDown={onKeyPressHandler}
                    className={error ? 'error' : ''}
             />
-            <button onClick={addTask}>+</button>
+            <button onClick={() => {
+                !error && addTask()
+            }}>+
+            </button>
             {error && <div className='error-message'>{error}</div>}
         </div>
         <ul>
@@ -87,33 +98,33 @@ export function Todolist(props: PropsType) {
 
                     return (
                         <li key={t.id} className={t.isDone ? "is-done" : ""}>
-                        <input
-                            type="checkbox"
-                            id={`checkbox${t.id}`}
-                            defaultChecked={t.isDone}
-                            onClick={onCheckboxClickHandler}
-                        />
-                        <label htmlFor={`checkbox${t.id}`}>{t.title}</label>
-                        <button onClick={onRemoveTaskClickHandler}>x
-                        </button>
-                    </li>)
+                            <input
+                                type="checkbox"
+                                id={`checkbox${t.id}`}
+                                defaultChecked={t.isDone}
+                                onClick={onCheckboxClickHandler}
+                            />
+                            <label htmlFor={`checkbox${t.id}`}>{t.title}</label>
+                            <button onClick={onRemoveTaskClickHandler}>x
+                            </button>
+                        </li>)
                 })
             }
         </ul>
 
         <div>
-            <button title={filters.all} onClick={()=>onClickHandler(filters.all)}
+            <button title={filters.all} onClick={() => onClickHandler(filters.all)}
                     className={props.filter === 'all' ? "active-filter" : ""}
             >
                 All
             </button>
-            <button title={filters.active} onClick={()=>onClickHandler(filters.active)}
+            <button title={filters.active} onClick={() => onClickHandler(filters.active)}
 
                     className={props.filter === 'active' ? "active-filter" : ""}
             >
                 Active
             </button>
-            <button title={filters.completed} onClick={()=>onClickHandler(filters.completed)}
+            <button title={filters.completed} onClick={() => onClickHandler(filters.completed)}
 
                     className={props.filter === 'completed' ? "active-filter" : ""}
             >
